@@ -1,0 +1,35 @@
+﻿@*Estas en View / Ejemplar / Index*@
+@model IList<gestionbibliotecaMVC.Models.Ejemplar>
+@{
+    Layout = "~/Views/shared/_LayoutPage.cshtml";
+}
+<div class="row">
+    <div class="col-md-0"></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-2">
+        @Html.ActionLink(" ", "ViewDetails", null, new {
+       @class = MyResources.BotonesResources.BotonCrear, @style = MyResources.BotonesResources.ColorCrear
+   })
+    </div>
+    <div class="col-md-7"></div>
+
+</div>
+
+@foreach (var ejemplar in Model) {
+
+    <div class="row">
+
+        <div class="col-md-0"></div>
+
+        <div class="col-md-4">
+            @Html.ActionLink(ejemplar.Titulo + " - " + ejemplar.Editorial.Nombre, "ViewDetails", new {CodEjemplar = ejemplar.CodEjemplar}, new {@class = MyResources.BotonesResources.BotonLink})
+        </div>
+
+        <div class="col-md-2">
+            @Html.ActionLink(" ", "Delete", new {CodEjemplar = ejemplar.CodEjemplar}, new {@class = MyResources.BotonesResources.BotonBorrar, @style = MyResources.BotonesResources.ColorBorrar})
+        </div>
+
+        <div class="col-md-7"></div>
+    </div>
+
+}

@@ -1,0 +1,55 @@
+﻿@*Estas en View / Prestamo / Index*@
+@model IList<gestionbibliotecaMVC.Models.Prestamo>
+@{
+    Layout = "~/Views/shared/_LayoutPage.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-1"><!-- Este es el hueco de sangria-->@MyResources.Resources.Sangria</div>
+    <div class="col-md-1">
+        <!-- AGREGAR PRESTAMO -->
+        @Html.ActionLink(" ", "ViewDetails", null, new {@class = MyResources.BotonesResources.BotonCrear, @style = MyResources.BotonesResources.ColorCrear})
+        <!-- FIN AGREGAR PRESTAMO -->
+    </div>
+    <div class="col-md-9"></div>
+    <div class="col-md-1"><!-- Este es el hueco de sangria-->@MyResources.Resources.Sangria</div>
+
+</div>
+@foreach (var prestamo in Model) {
+
+    <div class="row">
+
+        <div class="col-md-1"><!-- Este es el hueco de sangria-->@MyResources.Resources.Sangria</div>
+        
+        <div class="col-md-1">
+            @Html.ActionLink(@prestamo.CodPrestamo.ToString(), "ViewDetails", "Prestamo", new {codPrestamo = @prestamo.CodPrestamo}, null)
+        </div>
+        
+        <div class="col-md-1">
+             @Html.ActionLink(@prestamo.Usuario.Username, "ViewDetails", "Usuario", new {codUsuario = @prestamo.Usuario.CodUsuario}, null)
+        </div>
+        
+        <div class="col-md-2">
+            @Html.ActionLink(@prestamo.Ejemplar.Titulo, "ViewDetails", "Libro", new {codLibro = @prestamo.Ejemplar.CodLibro}, null)
+        </div>
+        
+        <div class="col-md-2">
+            @Html.ActionLink(@prestamo.Ejemplar.Isbn, "ViewDetails", "Libro", new {codLibro = @prestamo.Ejemplar.Isbn}, null)
+        </div>
+        
+        <div class="col-md-2">
+            @prestamo.FRecogida
+        </div>
+
+        <div class="col-md-2">
+            @if(prestamo.FDevolucion != Convert.ToDateTime("01/01/0001 0:00:00")) {
+                @prestamo.FDevolucion
+            } else {
+                @Html.Label("Sin devolver")
+            }
+        </div>
+
+         <div class="col-md-1"><!-- Este es el hueco de sangria-->@MyResources.Resources.Sangria</div>
+    </div>
+
+}

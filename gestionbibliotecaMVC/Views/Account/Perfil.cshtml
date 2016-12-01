@@ -1,0 +1,72 @@
+﻿@using gestionbibliotecaMVC.Models;
+
+@{
+    Usuario user = ((Usuario) Session["usuario"]);
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@user.Nombre @user.Apellidos</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="~/Resources/profile.png" class="img-circle img-responsive"> </div>
+
+                        <div class=" col-md-9 col-lg-9 ">
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>Nombre:</td>
+                                        <td>@user.Nombre</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Apellidos:</td>
+                                        <td>@user.Apellidos</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Fecha de Nacimiento:</td>
+                                        <td>@user.FNacimiento</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>DNI:</td>
+                                        <td>@user.Dni</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Usuario:</td>
+                                        <td>@user.Username</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Contraseña:</td>
+                                        <td>@user.Passwd</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td><a href="mailto:@user.Email">@user.Email</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <span class="pull-right">
+                                <a href="#" class="btn btn-primary">Mis prestamos</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="#" data-original-title="Editar Perfil" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="#" data-original-title="Darse de baja" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

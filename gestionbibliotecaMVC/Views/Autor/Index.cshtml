@@ -1,0 +1,38 @@
+﻿@*Estas en View / Autor / Index*@
+@model IList<gestionbibliotecaMVC.Models.Autor>
+@{
+    Layout = "~/Views/shared/_LayoutPage.cshtml";
+}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-2">
+        @Html.ActionLink(" ", "ViewDetails", null, new {
+       @class = MyResources.BotonesResources.BotonCrear, @style = MyResources.BotonesResources.ColorCrear
+   })
+    </div>
+    <div class="col-md-7"></div>
+
+</div>
+@foreach (var autor in Model) {
+
+    <div class="row">
+
+        <div class="col-md-0"></div>
+
+        <div class="col-md-3">
+            @Html.ActionLink(autor.Apellidos + " " + autor.Nombre, "ViewDetails", new {
+           CodAutor = autor.CodAutor
+       }, new {
+           @class = MyResources.BotonesResources.BotonLink
+       })
+        </div>
+        <div class="col-md-2">
+            @Html.ActionLink(" ", "Delete", new {
+           CodAutor = autor.CodAutor
+       }, new {
+           @class = MyResources.BotonesResources.BotonBorrar, @style = MyResources.BotonesResources.ColorBorrar
+       })
+        </div>
+        <div class="col-md-7"></div>
+    </div>
+}

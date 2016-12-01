@@ -1,0 +1,173 @@
+﻿@*Estas en View / Ejemplar / Ejemplar*@
+@model gestionbibliotecaMVC.ViewModel.UsuarioEjemplarViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+@using (Html.BeginForm("Save", "Ejemplar", FormMethod.Post)) {
+    @Html.ValidationSummary(true)
+
+    if (Model.Ejemplar.CodEjemplar != -1 && ViewBag.Title != MyResources.EjemplarResources.AccionEditar) {
+  <!-- FORMULARIO DE VISUALIZAR -->
+
+        <div class="form-group">
+            <div class="container">
+                <div class="col-md-1">
+                    <!-- BOTON DE EDITAR -->
+                    @Html.ActionLink("Editar", "ViewDetails", new {codEjemplar = Model.Ejemplar.CodEjemplar, editar = true}, new {@class = "btn btn-info"})
+                </div>
+
+                <div class="col-md-2">
+                    <!-- DROPDOWN USUARIO -->
+                    @using (Html.BeginForm()) {
+                        @Html.DropDownListFor(model => model.Usuario.CodUsuario, (SelectList)ViewBag.UsuarioList, htmlAttributes: new {@class = "form-control"})
+                    }
+                </div>
+
+                <div class="col-md-1">
+                    <!-- BOTON DE RESERVAR -->
+                    @Html.ActionLink("Reservar", "Reservar", new {codEjemplar = Model.Ejemplar.CodEjemplar, codUsuario = Model.Usuario.CodUsuario}, new {@class = "btn btn-success"})
+                </div><!-- FIN BOTONES -->
+            </div>
+        </div>        
+
+        @Html.HiddenFor(model => model.Ejemplar.CodEjemplar)
+
+        <div class="container">
+            <!-- TITULO -->
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Ejemplar.Titulo, htmlAttributes: new {@class = ""})
+                @Html.ActionLink(@Model.Ejemplar.Titulo, "ViewDetails", "Libro", new {codLibro = @Model.Ejemplar.CodLibro}, null)
+                @Html.ValidationMessageFor(model => model.Ejemplar.Titulo, "", new {@class = ""})
+            </div>
+            <!-- FIN DE TITULO -->
+
+            <!-- ISBN -->
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Ejemplar.Isbn, htmlAttributes: new {@class = ""})
+                @Html.ActionLink(@Model.Ejemplar.Isbn, "ViewDetails", "ejemplar", new {codEjemplar = @Model.Ejemplar.CodEjemplar}, null)
+                @Html.ValidationMessageFor(model => model.Ejemplar.Isbn, "", new {@class = ""})
+            </div>
+            <!-- FIN DE ISBN -->
+
+            <!-- EDITORIAL -->
+            <div class="col-md-6">
+              
+                @Html.LabelFor(model => model.Ejemplar.Editorial, htmlAttributes: new {@class = ""})
+                @Html.ActionLink(@Model.Ejemplar.Editorial.Nombre, "ViewDetails", "Editorial", new {codEditorial = @Model.Ejemplar.Editorial.CodEditorial}, null)
+                @Html.ValidationMessageFor(model => model.Ejemplar.Editorial.Nombre, "", new {@class = ""})
+            </div>
+            <!-- FIN DE EDITORIAL -->
+
+            <!-- AUTOR AUTOR -->
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Ejemplar.Autor, htmlAttributes: new {@class = ""})
+                @Html.ActionLink(@Model.Ejemplar.Autor.Nombre + " " + @Model.Ejemplar.Autor.Apellidos, "ViewDetails", "Autor", new {codAutor = @Model.Ejemplar.Autor.CodAutor}, null)
+                @Html.ValidationMessageFor(model => model.Ejemplar.Titulo, "", new {@class = ""})
+            </div>
+            <!-- FIN DE AUTOR -->
+
+             <!-- NUMERO DE PAGINAS -->
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Ejemplar.NPaginas, htmlAttributes: new {@class = ""})
+                @Model.Ejemplar.NPaginas
+                @Html.ValidationMessageFor(model => model.Ejemplar.NPaginas, "", new {@class = ""})
+            </div>
+            <!-- FIN DE NUMERO DE PAGINAS -->
+
+            <!-- FECHA DE PUBLICACION -->
+            <div class="col-md-6">
+               
+                @Html.LabelFor(model => model.Ejemplar.FPublicacion, htmlAttributes: new {@class = ""})
+                @Model.Ejemplar.FPublicacion
+                @Html.ValidationMessageFor(model => model.Ejemplar.FPublicacion, "", new {@class = ""})
+            </div>
+            <!-- FIN DE FECHA DE PUBLICACION -->
+
+        </div>
+
+    } else {
+        //FORMULARIO DE CREAR
+        @Html.HiddenFor(model => model.Ejemplar.CodEjemplar)
+
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- ISBN -->
+                        @Html.LabelFor(model => model.Ejemplar.Isbn, htmlAttributes: new {@class = ""})
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Ejemplar.Isbn, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Ejemplar.Isbn, "", new {@class = ""})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- DESPLEGABLE LIBRO -->
+                        @Html.LabelFor(model => model.Ejemplar.Titulo, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @using (Html.BeginForm()) {
+                            @Html.DropDownListFor(model => model.Ejemplar.CodLibro, (SelectList)ViewBag.LibrosList, Model.Ejemplar.CodLibro)
+                        }
+                        @Html.ValidationMessageFor(model => model.Ejemplar.CodLibro, "", new {@class = ""})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- DESPLEGABLE EDITORIAL -->
+                        @Html.LabelFor(model => model.Ejemplar.Editorial, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @using (Html.BeginForm()) {
+                            @Html.DropDownListFor(model => model.Ejemplar.Editorial.CodEditorial, (SelectList)ViewBag.EditorialList)
+                        
+                        }
+                        @Html.ValidationMessageFor(model => model.Ejemplar.Editorial.CodEditorial, "", new {@class = ""})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- NUMERO DE PAGINAS -->
+                        @Html.LabelFor(model => model.Ejemplar.NPaginas, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Ejemplar.NPaginas, new {htmlAttributes = new {@class = "form-control"}})
+
+                        @Html.ValidationMessageFor(model => model.Ejemplar.NPaginas, "", new {@class = ""})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- FECHA DE PUBLICACION -->
+                        @Html.LabelFor(model => model.Ejemplar.FPublicacion, htmlAttributes: new {@class = ""})
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Ejemplar.FPublicacion, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Ejemplar.FPublicacion, "", new {@class = ""})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+
+                    </div>
+                    <div class="col-md-9"> <input type="submit" class="btn btn-success" value="Guardar" /></div>
+                </div>
+            </div>
+        </div>
+    }
+}

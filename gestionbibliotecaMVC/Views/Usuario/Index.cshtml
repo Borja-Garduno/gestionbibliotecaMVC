@@ -1,0 +1,35 @@
+﻿@*Estas en View / Usuario / Index*@
+@model IList<gestionbibliotecaMVC.Models.Usuario>
+@{
+    Layout = "~/Views/shared/_LayoutPage.cshtml";
+}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-2">
+        <!-- AGREGAR USUARIO -->
+        @Html.ActionLink(" ", "ViewDetails", null, new {@class = MyResources.BotonesResources.BotonCrear, @style = MyResources.BotonesResources.ColorCrear})
+        <!-- FIN AGREGAR USUARIO -->
+    </div>
+    <div class="col-md-7"></div>
+
+</div>
+@foreach (var usuario in Model) {
+
+    <div class="row">
+
+        <div class="col-md-0"></div>
+
+        <div class="col-md-3">
+            <!-- VIEW DETAILS USUARIO -->
+            @Html.ActionLink(usuario.Dni + " - " + usuario.Apellidos + " " + usuario.Nombre, "ViewDetails", new {codUsuario = usuario.CodUsuario}, new {@class = MyResources.BotonesResources.BotonLink})
+            <!-- FIN VIEW DETAILS USUARIO -->
+        </div>
+        <div class="col-md-2">
+            <!-- BORRAR USUARIO -->
+            @Html.ActionLink(" ", "Delete", new {codUsuario = usuario.CodUsuario}, new {@class = MyResources.BotonesResources.BotonBorrar, @style = MyResources.BotonesResources.ColorBorrar})
+            <!-- FIN BORRAR USUARIO -->
+        </div>
+        <div class="col-md-7"></div>
+    </div>
+
+}

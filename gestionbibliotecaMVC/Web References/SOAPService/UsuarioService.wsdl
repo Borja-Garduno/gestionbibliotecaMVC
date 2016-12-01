@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="UsuarioService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/WcfBiblioteca" />
+      <xs:element name="GetVersion">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetVersionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetVersionResult" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getUsuarioById">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="codUsuario" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getUsuarioByIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WcfBiblioteca" minOccurs="0" name="getUsuarioByIdResult" nillable="true" type="q1:Usuario" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAll">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAllResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WcfBiblioteca" minOccurs="0" name="getAllResult" nillable="true" type="q2:ArrayOfUsuario" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAllNoBorrados">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAllNoBorradosResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WcfBiblioteca" minOccurs="0" name="getAllNoBorradosResult" nillable="true" type="q3:ArrayOfUsuario" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAllBorrados">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAllBorradosResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WcfBiblioteca" minOccurs="0" name="getAllBorradosResult" nillable="true" type="q4:ArrayOfUsuario" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getByUsernameUsuario">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="passwd" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getByUsernameUsuarioResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="getByUsernameUsuarioResult" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="update">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WcfBiblioteca" minOccurs="0" name="usuario" nillable="true" type="q5:Usuario" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/WcfBiblioteca" minOccurs="0" name="updateResult" nillable="true" type="q6:Usuario" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="delete">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="codUsuario" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteResponse">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="create">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WcfBiblioteca" minOccurs="0" name="usuario" nillable="true" type="q7:Usuario" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/WcfBiblioteca" minOccurs="0" name="createResult" nillable="true" type="q8:Usuario" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WcfBiblioteca" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WcfBiblioteca" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="Usuario">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Borrado" type="xs:int" />
+          <xs:element minOccurs="0" name="CodUsuario" type="xs:int" />
+          <xs:element minOccurs="0" name="Dni" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FNacimiento" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Passwd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Usuario" nillable="true" type="tns:Usuario" />
+      <xs:complexType name="ArrayOfUsuario">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Usuario" nillable="true" type="tns:Usuario" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfUsuario" nillable="true" type="tns:ArrayOfUsuario" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IUsuario_GetVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVersion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_GetVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getUsuarioById_InputMessage">
+    <wsdl:part name="parameters" element="tns:getUsuarioById" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getUsuarioById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getUsuarioByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:getAll" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getAllNoBorrados_InputMessage">
+    <wsdl:part name="parameters" element="tns:getAllNoBorrados" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getAllNoBorrados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getAllNoBorradosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getAllBorrados_InputMessage">
+    <wsdl:part name="parameters" element="tns:getAllBorrados" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getAllBorrados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getAllBorradosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getByUsernameUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:getByUsernameUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_getByUsernameUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getByUsernameUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_update_InputMessage">
+    <wsdl:part name="parameters" element="tns:update" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_update_OutputMessage">
+    <wsdl:part name="parameters" element="tns:updateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:delete" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_create_InputMessage">
+    <wsdl:part name="parameters" element="tns:create" />
+  </wsdl:message>
+  <wsdl:message name="IUsuario_create_OutputMessage">
+    <wsdl:part name="parameters" element="tns:createResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IUsuario">
+    <wsdl:operation name="GetVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuario/GetVersion" message="tns:IUsuario_GetVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuario/GetVersionResponse" message="tns:IUsuario_GetVersion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getUsuarioById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuario/getUsuarioById" message="tns:IUsuario_getUsuarioById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuario/getUsuarioByIdResponse" message="tns:IUsuario_getUsuarioById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuario/getAll" message="tns:IUsuario_getAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuario/getAllResponse" message="tns:IUsuario_getAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllNoBorrados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuario/getAllNoBorrados" message="tns:IUsuario_getAllNoBorrados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuario/getAllNoBorradosResponse" message="tns:IUsuario_getAllNoBorrados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getAllBorrados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuario/getAllBorrados" message="tns:IUsuario_getAllBorrados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuario/getAllBorradosResponse" message="tns:IUsuario_getAllBorrados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getByUsernameUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuario/getByUsernameUsuario" message="tns:IUsuario_getByUsernameUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuario/getByUsernameUsuarioResponse" message="tns:IUsuario_getByUsernameUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuario/update" message="tns:IUsuario_update_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuario/updateResponse" message="tns:IUsuario_update_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuario/delete" message="tns:IUsuario_delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuario/deleteResponse" message="tns:IUsuario_delete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="create">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuario/create" message="tns:IUsuario_create_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuario/createResponse" message="tns:IUsuario_create_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IUsuario" type="tns:IUsuario">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetVersion">
+      <soap:operation soapAction="http://tempuri.org/IUsuario/GetVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUsuarioById">
+      <soap:operation soapAction="http://tempuri.org/IUsuario/getUsuarioById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAll">
+      <soap:operation soapAction="http://tempuri.org/IUsuario/getAll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllNoBorrados">
+      <soap:operation soapAction="http://tempuri.org/IUsuario/getAllNoBorrados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllBorrados">
+      <soap:operation soapAction="http://tempuri.org/IUsuario/getAllBorrados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getByUsernameUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuario/getByUsernameUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="update">
+      <soap:operation soapAction="http://tempuri.org/IUsuario/update" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delete">
+      <soap:operation soapAction="http://tempuri.org/IUsuario/delete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="create">
+      <soap:operation soapAction="http://tempuri.org/IUsuario/create" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UsuarioService">
+    <wsdl:port name="BasicHttpBinding_IUsuario" binding="tns:BasicHttpBinding_IUsuario">
+      <soap:address location="http://localhost:55116/UsuarioService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

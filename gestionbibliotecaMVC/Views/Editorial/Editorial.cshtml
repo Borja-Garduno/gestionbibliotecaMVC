@@ -1,0 +1,114 @@
+﻿@*Estas en View / Editorial / Editorial*@
+@model gestionbibliotecaMVC.ViewModel.EditorialViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+@using (Html.BeginForm("Save", "Editorial", FormMethod.Post)) {
+
+    @Html.ValidationSummary(true)
+
+    if (Model.Editorial.CodEditorial != -1 && ViewBag.Title != MyResources.EditorialResources.AccionEditar) {
+        <!-- FORMULARIO DE VISUALIZAR -->
+        <div class="container">
+            <div class="col-md-12">
+                <!-- BOTON DE EDITAR -->
+                @Html.ActionLink("Editar", "ViewDetails", new {
+    codEditorial = Model.Editorial.CodEditorial, editar = true
+}, new {
+    @class = "btn btn-info"
+})
+            </div><!-- FIN BOTON DE EDITAR -->
+        </div>
+
+        @Html.HiddenFor(model => model.Editorial.CodEditorial)
+        <div class="container">
+
+            <div class="col-md-12">
+                <!-- NOMBRE -->
+                @Html.LabelFor(model => model.Editorial.Nombre, htmlAttributes: new {
+    @class = ""
+})
+                @Model.Editorial.Nombre
+                @Html.ValidationMessageFor(model => model.Editorial.Nombre, "", new {
+    @class = ""
+})
+            </div><!-- FIN NOMBRE -->
+        </div>
+        if (Model.Ejemplares.Count > 0) {
+
+            /*Acordeon*/
+            <div class="container">
+                <div class="panel-group" id="accordion">
+                    @foreach (var ejemplar in Model.Ejemplares) {
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#@ejemplar.CodEjemplar">
+                                        @ejemplar.Isbn
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="@ejemplar.CodEjemplar" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <p class="text-">
+                                            <strong>@MyResources.EjemplarResources.DatoIsbn</strong> @Html.ActionLink(@ejemplar.Isbn, "ViewDetails", "Ejemplar", new {
+                                                        codEjemplar = @ejemplar.CodEjemplar
+                                                    }, null)
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="text-">
+                                            <strong>@MyResources.EjemplarResources.DatoTitulo</strong> @Html.ActionLink(@ejemplar.Titulo, "ViewDetails", "Libro", new {
+                                                              codLibro = @ejemplar.CodLibro
+                                                          }, null)
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6"><p class="text-"><strong>@MyResources.EjemplarResources.DatoNPaginas</strong> @ejemplar.NPaginas</p></div>
+                                    <div class="col-md-6"><p class="text-"><strong>@MyResources.EjemplarResources.DatoFPublicacion</strong> @ejemplar.FPublicacion</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    } else {
+        <!-- FORMULARIO DE CREAR -->
+        @Html.HiddenFor(model => model.Editorial.CodEditorial)
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <!-- TEXTO NOMBRE -->
+                        @Html.LabelFor(model => model.Editorial.Nombre, htmlAttributes: new {
+    @class = ""
+})
+                    </div>
+                    <div class="col-md-3">
+                        <!-- TEXTBOX NOMBRE -->
+                        @Html.EditorFor(model => model.Editorial.Nombre, new {
+    htmlAttributes = new {
+        @class = "form-control"
+    }
+})
+                        @Html.ValidationMessageFor(model => model.Editorial.Nombre, "", new {
+    @class = ""
+})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+
+                    </div>
+                    <div class="col-md-9"> <input type="submit" class="btn btn-success" value="Guardar" /></div>
+                </div>
+            </div>
+        </div>
+    }
+}

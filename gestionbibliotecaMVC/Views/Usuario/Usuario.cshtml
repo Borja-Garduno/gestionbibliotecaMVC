@@ -1,0 +1,200 @@
+﻿@*Estas en View / Usuario / Codigo del Usuario*@
+@model gestionbibliotecaMVC.ViewModel.UsuarioViewModel
+@{
+
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@using (Html.BeginForm("Save", "Usuario", FormMethod.Post)) {
+
+    @Html.ValidationSummary(true)
+
+    if (Model.Usuario.CodUsuario != -1 && ViewBag.Title != MyResources.UsuarioResources.AccionEditar) {
+        <!-- FORMULARIO DE VISUALIZAR -->
+        <!-- BOTON DE EDITAR -->
+        <div class="container">
+            <div class="col-md-12">
+                @Html.ActionLink("Editar", "ViewDetails", new {codUsuario = Model.Usuario.CodUsuario, editar = true}, new {@class = "btn btn-info"})
+            </div>
+        </div>
+        <!-- FIN BOTON DE EDITAR -->
+        <!-- VISUALIZACION DEL USUARIO -->
+        @Html.HiddenFor(model => model.Usuario.CodUsuario)
+        <div class="container">
+            <!-- DNI -->
+            <div class="col-md-6"> 
+                @Html.LabelFor(model => model.Usuario.Dni, htmlAttributes: new {@class = ""})
+                @Model.Usuario.Dni
+                @Html.ValidationMessageFor(model => model.Usuario.Dni, "", new {@class = ""})
+            </div>
+            <!-- FIN DNI -->
+            <!-- NOMBRE -->
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Usuario.Nombre, htmlAttributes: new {@class = ""})
+                @Model.Usuario.Nombre
+                @Html.ValidationMessageFor(model => model.Usuario.Nombre, "", new {@class = ""})
+            </div>
+            <!-- FIN NOMBRE -->
+            <!-- APELLIDOS -->
+            <div class="col-md-6"> 
+                @Html.LabelFor(model => model.Usuario.Apellidos, htmlAttributes: new {@class = ""})
+                @Model.Usuario.Apellidos
+                @Html.ValidationMessageFor(model => model.Usuario.Apellidos, "", new {@class = ""})
+            </div>
+            <!-- FIN APELLIDOS -->
+            <!-- FNACIMIENTO -->
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Usuario.FNacimiento, htmlAttributes: new {@class = ""})
+                @Model.Usuario.FNacimiento
+                @Html.ValidationMessageFor(model => model.Usuario.FNacimiento, "", new {@class = ""})
+            </div>
+            <!-- FIN FNACIMIENTO -->
+            <!-- EMAIL -->
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Usuario.Email, htmlAttributes: new {@class = ""})
+                @Model.Usuario.Email
+                @Html.ValidationMessageFor(model => model.Usuario.Email, "", new {@class = ""})
+            </div>
+            <!-- FIN EMAIL -->
+            <!-- USERNAME -->
+            <div class="col-md-6">                
+                @Html.LabelFor(model => model.Usuario.Username, htmlAttributes: new {@class = ""})
+                @Model.Usuario.Username
+                @Html.ValidationMessageFor(model => model.Usuario.Username, "", new {@class = ""})
+            </div>
+            <!-- FIN USERNAME -->
+            <!-- PASSWD -->
+            <div class="col-md-6">    
+                @Html.LabelFor(model => model.Usuario.Passwd, htmlAttributes: new {@class = ""})
+                @Model.Usuario.Passwd
+                @Html.ValidationMessageFor(model => model.Usuario.Passwd, "", new {@class = ""})
+            </div>
+            <!-- FIN PASSWD -->
+        </div>
+        <!-- FIN VISUALIZACION DEL USUARIO -->
+        if (Model.Prestamos.Count > 0) {
+            /*Acordeon*/
+            <div class="container">
+                <div class="panel-group" id="accordion">
+                    @foreach (var prestamo in Model.Prestamos) {
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#@prestamo.CodPrestamo">
+                                        @prestamo.Ejemplar.Titulo
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="@prestamo.CodPrestamo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <!--<div class="col-md-12"><p class="text-"><strong>@MyResources.PrestamoResources.DatoCodigo</strong> @prestamo.CodPrestamo</p></div>-->
+                                    <!--<div class="col-md-12"><p class="text-"><strong>@MyResources.PrestamoResources.DatoUsuario</strong> @prestamo.Usuario.Nombre @prestamo.Usuario.Apellidos</p></div>-->
+                                    <div class="col-md-6">
+                                        <p class="text-">
+                                            <strong>@MyResources.PrestamoResources.DatoLibro</strong> @Html.ActionLink(@prestamo.Ejemplar.Titulo, "ViewDetails", "Libro", new {codLibro = @prestamo.Ejemplar.CodLibro}, null)
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="text-">
+                                            <strong>@MyResources.PrestamoResources.DatoIsbn</strong> @Html.ActionLink(@prestamo.Ejemplar.Isbn, "ViewDetails", "Ejemplar", new {codEjemplar = @prestamo.Ejemplar.CodEjemplar}, null)
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6"><p class="text-"><strong>@MyResources.PrestamoResources.DatoFRecogida</strong> @prestamo.FRecogida</p></div>
+                                    <div class="col-md-6"><p class="text-"><strong>@MyResources.PrestamoResources.DatoFDevolucion</strong> @prestamo.FDevolucion</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    } else {
+        <!-- FORMULARIO DE CREAR -->
+        @Html.HiddenFor(model => model.Usuario.CodUsuario)
+
+        <div class="form-group">
+            <div class="container">
+                <div class="row"><!-- ROW DNI -->
+                    <div class="col-md-3">
+                        <!-- TEXTO DNI -->
+                        @Html.LabelFor(model => model.Usuario.Dni, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        <!-- TEXTBOX  DNI -->
+                        @Html.EditorFor(model => model.Usuario.Dni, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Usuario.Dni, "", new {@class = ""})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+                <div class="row"><!-- ROW NOMBRE -->
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Usuario.Nombre, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Usuario.Nombre, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Usuario.Nombre, "", new {@class = ""})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+                <div class="row"><!-- ROW APELLIDOS -->
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Usuario.Apellidos, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Usuario.Apellidos, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Usuario.Apellidos, "", new {@class = ""})
+                    </div>
+                <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+                <div class="row"><!-- ROW FNACIMIENTO -->
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Usuario.FNacimiento, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Usuario.FNacimiento, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Usuario.FNacimiento, "", new {@class = ""})
+                    </div>
+                <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+                <div class="row"><!-- ROW EMAIL -->
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Usuario.Email, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Usuario.Email, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Usuario.Email, "", new {@class = ""})
+                    </div>
+                <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+                <div class="row"><!-- ROW USERNAME -->
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Usuario.Username, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Usuario.Username, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Usuario.Username, "", new {@class = ""})
+                    </div>
+                <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+                <div class="row"><!-- ROW PASSWD -->
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Usuario.Passwd, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Usuario.Passwd, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Usuario.Passwd, "", new {@class = ""})
+
+                    </div>
+                <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+                <div class="row"><!-- ROW SUCCES -->
+                    <div class="col-md-3">
+
+                    </div>
+                    <div class="col-md-9"> <input type="submit" class="btn btn-success" value="Guardar" />
+                </div>
+                </div>
+            </div>
+        </div>
+    }
+}

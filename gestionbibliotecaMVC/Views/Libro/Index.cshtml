@@ -1,0 +1,35 @@
+﻿@*Estas en View / Libro / Index*@
+@model IList<gestionbibliotecaMVC.Models.Libro>
+@{
+    Layout = "~/Views/shared/_LayoutPage.cshtml";
+}
+
+@foreach (var libro in Model) {
+
+    <div class="row">
+
+        <div class="col-md-0"></div>
+
+        <div class="col-md-3">
+            @Html.ActionLink(@libro.Titulo, "ViewDetails", new {
+           codLibro = libro.CodLibro
+       }, new {
+           @class = MyResources.BotonesResources.BotonLink
+       })
+        </div>
+        @*
+        <div class="col-md-2">
+            @Html.ActionLink(" ", "Delete", new {
+           codLibro = libro.CodLibro
+       }, new {
+           @class = MyResources.BotonesResources.BotonBorrar, @style = MyResources.BotonesResources.ColorBorrar
+     })
+        </div>
+        *@
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+}

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" crossorigin="anonymous">
+
+    <!-- BOOTSTRAP THEME -->
+    <!--<link rel="stylesheet" href="~/Content/bootstrap-theme.min.css" crossorigin="anonymous">-->
+    <!-- CSS FOR FOOTER -->
+    <link rel="stylesheet" href="~/Content/sticky-footer-navbar.css" crossorigin="anonymous">
+
+    <!-- CSS FOR LOGIN -->
+    <link rel="stylesheet" href="~/Content/signin.css" crossorigin="anonymous">
+
+    <!-- CSS FOR USER PROFILE IN NAVBAR -->
+    <link rel="stylesheet" href="~/Content/user-profile.css" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <!-- HTML PARA EL MENU -->
+    @Html.Partial("_MenuPartial")
+
+    @*
+        @{
+            var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+        }
+        @helper selected(string c, string culture) {
+            if (c == culture) {
+                @:checked="checked"
+            }
+        }
+
+        @using (Html.BeginForm("SetCulture", "Home"))
+        {
+            <label for="en">
+                <input name="culture" id="en" value="en" type="radio" @selected("en", culture) /> @MyResources.Resources.IdiomaEnglish
+            </label>
+
+            <label for="es">
+                <input name="culture" id="es" value="es" type="radio" @selected("es", culture) /> @MyResources.Resources.IdiomaCastellano
+            </label>
+
+            <label for="es-eu">
+                <input name="culture" id="es-eu" value="es-eu" type="radio" @selected("es-eu", culture) /> @MyResources.Resources.IdiomaEuskara
+            </label>
+        }
+    *@
+    <div class="container-fluid">
+        <div class="container">
+            <h1>@ViewBag.Title</h1>
+            <div>@ViewBag.Message</div>
+        </div>
+
+
+        <div>
+            @RenderBody()
+        </div>
+    </div>
+    <!-- HTML PARA EL FOOTER -->
+    @Html.Partial("_FooterPartial")
+
+    <!-- SCRIPT PARA LOGIN -->
+    <script src="~/scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
+    <script src="~/scripts/user-profile.js"></script>
+    <!-- SCRIPT PARA LOGIN -->
+
+</body>
+
+</html>

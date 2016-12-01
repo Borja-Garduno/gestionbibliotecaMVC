@@ -1,0 +1,55 @@
+﻿@model gestionbibliotecaMVC.Models.RegisterModel
+
+@{
+    ViewBag.Title = "Registro";
+}
+
+<div class="container">
+
+@using (Html.BeginForm("Registrar", "Account", null, FormMethod.Post, new { @class = "form-signin" }))
+{
+        <div>
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre" } })
+            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "" })
+        </div>
+
+        <div>
+            @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control", @placeholder = "Apellidos" } })
+            @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "" })
+        </div>
+
+        <div>
+            @Html.EditorFor(model => model.FNacimiento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fecha de Nacimiento: dd/mm/yyyy" } })
+            @Html.ValidationMessageFor(model => model.FNacimiento, "", new { @class = "" })
+        </div>
+
+        <div>
+            @Html.EditorFor(model => model.Dni, new { htmlAttributes = new { @class = "form-control", @placeholder = "DNI: XXXXXXXXY" } })
+            @Html.ValidationMessageFor(model => model.Dni, "", new { @class = "" })
+        </div>
+
+        <div>
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Usuario" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "" })
+        </div>
+
+        <div>
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "" })
+        </div>
+
+        <div>
+            @Html.EditorFor(model => model.Passwd, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contraseña" } })
+            @Html.ValidationMessageFor(model => model.Passwd, "", new { @class = "" })
+        </div>
+
+        <div>
+            @Html.EditorFor(model => model.ConfirmPasswd, new { htmlAttributes = new { @class = "form-control", @placeholder = "Repetir contraseña" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPasswd, "", new { @class = "" })
+        </div>
+
+
+        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Registrar</button>
+}
+    
+</div>

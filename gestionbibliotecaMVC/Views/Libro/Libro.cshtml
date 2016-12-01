@@ -1,0 +1,151 @@
+﻿@*Estas en View / Libro / Libro*@
+@model gestionbibliotecaMVC.ViewModel.LibroViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@using (Html.BeginForm("Save", "Libro", FormMethod.Post)) {
+
+    @Html.ValidationSummary(true)
+
+
+    if (Model.Libro.CodLibro != -1 && ViewBag.Title != MyResources.LibroResources.AccionEditar) {
+         <!-- FORMULARIO DE VISUALIZAR -->
+        <div class="container">
+            <div class="col-md-12">
+                <!-- BOTON DE EDITAR -->
+                @Html.ActionLink("Editar", "ViewDetails", new {
+               codLibro = Model.Libro.CodLibro, editar = true
+           }, new {
+               @class = "btn btn-info"
+           })
+            </div><!-- FIN BOTON DE EDITAR -->
+        </div>
+
+        @Html.HiddenFor(model => model.Libro.CodLibro)
+        <div class="container">
+            <div class="col-md-6">
+                <!-- TITULO -->
+                @Html.LabelFor(model => model.Libro.Titulo, htmlAttributes: new {
+               @class = ""
+           })
+                @Model.Libro.Titulo
+                @Html.ValidationMessageFor(model => model.Libro.Titulo, "", new {
+               @class = ""
+           })
+            </div><!-- FIN TITULO -->
+            <div class="col-md-6">
+                <!-- AUTOR -->
+                @Html.LabelFor(model => model.Libro.Autor, htmlAttributes: new {
+               @class = ""
+           })
+                @Html.ActionLink(@Model.Libro.Autor.Nombre+" "+@Model.Libro.Autor.Apellidos, "ViewDetails", "Autor", new {
+               codAutor = @Model.Libro.Autor.CodAutor
+           }, null)
+
+                @Html.ValidationMessageFor(model => model.Libro.Autor, "", new {
+               @class = ""
+           })
+            </div><!-- FIN AUTOR-->
+        </div>
+        if (Model.Ejemplares.Count > 0) {
+
+
+            /*Acordeon*/
+            <div class="container">
+                <div class="panel-group" id="accordion">
+                    @foreach (var ejemplar in Model.Ejemplares) {
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#@ejemplar.CodEjemplar">
+                                        @ejemplar.Isbn
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="@ejemplar.CodEjemplar" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <!-- ENLACE A ISBN --> <div class="col-md-6">
+                                        <p class="text-">
+                                            <strong>@MyResources.EjemplarResources.DatoIsbn</strong> @Html.ActionLink(@ejemplar.Isbn, "ViewDetails", "Ejemplar", new {
+                                                                                                    codEjemplar = @ejemplar.CodEjemplar
+                                                                                                }, null)
+                                        </p>
+                                    </div>  <!-- FIN ENLACE A ISBN -->
+
+                                  
+                                    <!-- ENLACE A EDITORIAL --> <div class="col-md-6">
+                                        <p class="text-">
+                                            <strong>@MyResources.EjemplarResources.DatoEditorial</strong> @Html.ActionLink(@ejemplar.Editorial.Nombre, "ViewDetails", "Editorial", new {
+                                                                                                         codEditorial = @ejemplar.Editorial.CodEditorial
+                                                                                                     }, null)
+                                        </p>
+                                    </div><!-- FIN ENLACE A EDITORIAL -->
+                                      <div class="col-md-6"><p class="text-"><strong>@MyResources.EjemplarResources.DatoNPaginas</strong> @ejemplar.NPaginas</p></div>
+                                    <div class="col-md-6"><p class="text-"><strong>@MyResources.EjemplarResources.DatoFPublicacion</strong> @ejemplar.FPublicacion</p></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+
+
+        }
+    } else {
+                    <!-- FORMULARIO DE CREAR -->
+        @Html.HiddenFor(model => model.Libro.CodLibro)
+
+
+        <div class="form-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- TEXTO TITULO -->
+                        @Html.LabelFor(model => model.Libro.Titulo, htmlAttributes: new {
+                       @class = ""
+                   })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.Libro.Titulo, new {
+                       htmlAttributes = new {
+                           @class = "form-control"
+                       }
+                   })
+                        @Html.ValidationMessageFor(model => model.Libro.Titulo, "", new {
+                       @class = ""
+                   })
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- TEXTO CODAUTOR -->
+                        @Html.LabelFor(model => model.Libro.Autor, htmlAttributes: new {
+                       @class = ""
+                   })
+                    </div>
+                    <div class="col-md-3">
+                    @using (Html.BeginForm()) {
+                     @Html.DropDownListFor(model => model.Libro.Autor.CodAutor, (SelectList)ViewBag.AutorList, htmlAttributes: new {
+                    @class = "form-control"
+                })}
+                        @*@using (Html.BeginForm()) {
+                        @Html.DropDownListFor(model => model.Libro.Autor.CodAutor, ViewData["autores"] as List<SelectListItem>, htmlAttributes: new {
+                        @class = "form-control"})}*@
+
+                        @Html.ValidationMessageFor(model => model.Libro.Autor.CodAutor, "", new {@class = ""})
+
+                    </div> <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+
+                </div><div class="row">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-9"> <input type="submit" class="btn btn-success" value="Guardar" /></div>
+                </div>
+            </div>
+        </div>
+    }
+}

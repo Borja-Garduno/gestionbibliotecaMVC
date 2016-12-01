@@ -1,0 +1,181 @@
+﻿@**Estas en View / Prestamo / Prestamo*@
+@model gestionbibliotecaMVC.Models.Prestamo
+@{
+   
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@using (Html.BeginForm("Save", "Prestamo", FormMethod.Post)) {
+
+    @Html.ValidationSummary(true)
+
+
+    if (Model.CodPrestamo != -1 && ViewBag.Title != MyResources.PrestamoResources.AccionEditar) {
+        <!-- FORMULARIO DE VISUALIZAR -->
+        <!-- BOTON DE EDITAR -->
+        <div class="container">
+            <div class="col-md-12">
+                @Html.ActionLink("Editar", "ViewDetails", new {CodPrestamo = Model.CodPrestamo, editar = true}, new {@class = "btn btn-info"})
+            </div>
+        </div>
+
+            <div>
+                @Html.LabelFor(model => model.Usuario.Username, htmlAttributes: new {@class = ""})
+                @Html.ActionLink(@Model.Usuario.Username, "Usuario", "Prestamo", new {codUsuario = @Model.Usuario.CodUsuario}, null)
+                @*@Model.Usuario.Username*@
+                @Html.ValidationMessageFor(model => model.Usuario.Username, "", new {@class = ""})
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.Ejemplar.Isbn, htmlAttributes: new {@class = ""})
+                @Model.Ejemplar.Isbn
+                @Html.ValidationMessageFor(model => model.Ejemplar.Isbn, "", new {@class = ""})
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.FRecogida, htmlAttributes: new {@class = ""})
+                @Model.FRecogida
+                @Html.ValidationMessageFor(model => model.FRecogida, "", new {@class = ""})
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.FDevolucion, htmlAttributes: new {@class = ""})
+
+                @if(Model.FDevolucion != Convert.ToDateTime("01/01/0001 0:00:00")) {
+                    @Model.FDevolucion
+                } else {
+                    @Html.Label("Sin devolver")
+                }
+
+                @Html.ValidationMessageFor(model => model.FDevolucion, "", new {@class = ""})
+            </div>
+    } else {
+        <!-- FORMULARIO DE CREAR/EDITAR -->
+        @Html.HiddenFor(model => model.CodPrestamo)
+
+        <div class="form-group">
+            <div class="container">
+                <div class="row"><!-- ROW USERNAME -->
+                    <div class="col-md-3">
+                        <!-- TEXTBOX USERNAME -->
+                        @Html.LabelFor(model => model.Usuario.Username, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+
+                        @using (Html.BeginForm()) {
+                             @Html.DropDownListFor(model => model.Usuario.CodUsuario, (SelectList)ViewBag.UsuarioList, htmlAttributes: new {
+                            @class = "form-control"
+                        })}
+
+                        @*@using (Html.BeginForm()) {
+                            @Html.DropDownListFor(model => model.Usuario.Nombre, ViewData["usuarios"] as List<SelectListItem>, htmlAttributes: new {@class = "form-control"})
+                        }*@
+
+                        @Html.ValidationMessageFor(model => model.Usuario.Nombre, "", new {@class = ""})
+
+                        <!-- TEXTBOX  USERNAME -->
+                        @*@Html.EditorFor(model => model.Usuario.Username, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Usuario.Username, "", new {@class = ""})*@
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+
+                <div class="row"><!-- ROW LIBRO -->
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Ejemplar.Titulo, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+
+                        @using (Html.BeginForm()) {
+                             @Html.DropDownListFor(model => model.Ejemplar.CodEjemplar, (SelectList)ViewBag.EjemplarList, htmlAttributes: new {@class = "form-control", @onchange = "window.location.reload()"})}
+
+                        @*@using (Html.BeginForm()) {
+                            @Html.DropDownListFor(model => model.Ejemplar.Titulo, ViewData["ejemplares"] as List<SelectListItem>, htmlAttributes: new {@class = "form-control"})
+                        }*@
+
+                        @Html.ValidationMessageFor(model => model.Ejemplar.Titulo, "", new {@class = ""})
+
+
+                        @*@Html.EditorFor(model => model.Ejemplar.Isbn, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Ejemplar.Isbn, "", new {@class = ""})*@
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+
+                <div class="row"><!-- ROW FRECOGIDA -->
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.FRecogida, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.FRecogida, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.FRecogida, "", new {@class = ""})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>
+
+                @*<div class="row"><!-- ROW FDEVOLUCION -->
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.FDevolucion, htmlAttributes: new {@class = ""})
+                    </div>
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.FDevolucion, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.FDevolucion, "", new {@class = ""})
+                    </div>
+                    <div class="col-md-6"><!-- RELLENO DE LINEA --> </div>
+                </div>*@
+
+                <div class="table" style="visibility: visible; border: solid">
+                    <div class="row">
+                        <div class="col-md-3">
+                            EDITORIAL
+                        </div>
+
+                        <div class="col-md-3">
+                            ISBN
+                        </div>
+
+                        <div class="col-md-3">
+                            NUMERO DE PAGINAS
+                        </div>
+
+                        <div class="col-md-3">
+                            FECHA PUBLICACION
+                        </div>
+                    </div>
+
+                   <div class="row">
+                        <div class="col-md-3">
+                            PRUEBA
+                        </div>
+
+                        <div class="col-md-3">
+                            PRUEBA
+                        </div>
+
+                        <div class="col-md-3">
+                            PRUEBA
+                        </div>
+
+                        <div class="col-md-3">
+                            PRUEBA
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row"><!-- ROW SUCCES -->
+                    <div class="col-md-3">
+
+                    </div>
+                    <div class="col-md-9"> <input type="submit" class="btn btn-success" value="Guardar" />
+                </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+
+
+}
